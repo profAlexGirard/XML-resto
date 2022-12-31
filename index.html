@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>*** Resto ***</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="style.css" rel="stylesheet" type="text/css"/>
+    
+<!-- Include the JavaScript code for processing the XML data -->
+<script src="script.js">
+</script>
+<script>
+	window.addEventListener("load", function() {
+		initialize('menuTable','restoMenuXML');
+		document.forms[0].txtBillAmt.value=calculateBill('menuTable');
+		document.querySelector("#calcBill").addEventListener("click", function () {
+			document.forms[0].txtBillAmt.value=calculateBill('menuTable');
+		});
+		document.querySelector("#showVeg").addEventListener("click", function () {
+			highlightVegetarian('menuTable',this.checked);			
+		});
+	});
+</script>
+</head>
+<body>
+    
+    <xml id="restoMenuXML">
+  <cafemenu>
+  	<section name="Accompagnements">
+  		<entree vegetarian="true">
+  			<item>Salade de pommes de terre</item>
+  			<price>2.95</price>
+  		</entree>
+  		<entree>
+  			<item>Oeufs Mimosas</item>
+  			<price>5.50</price>
+  		</entree>
+  		<entree>
+  			<item>Calamars Tapas</item>
+  			<price>6.50</price>
+  		</entree>
+  	</section>
+  	<section name="Petit dejeuner">
+  		<entree>
+  			<item>Oeufs brouilles</item>
+  			<price>2.99</price>
+  		</entree>
+  		<entree>
+			<item>Oeufs aux 3 poivres</item>
+			<price>6.29</price>
+  		</entree>
+  		<entree vegetarian="true">
+  			<item>Fruits Bowl</item>
+  			<price>4.99</price>
+  		</entree>
+  		<entree vegetarian="true">
+  			<item>French toast</item>
+			<price>3.25</price>
+  		</entree>
+  		<entree>
+  		    <item>Croissant</item>
+  		    <price>1.99</price>
+  		</entree>
+  	</section>
+  	<section name="Dejeuner">
+  		<entree>
+  			<item>Sandwich poulet grille</item>
+  			<price>5.99</price>
+  		</entree>
+  		<entree>
+  			<item>Thon cru</item>
+			<price>4.99</price>
+  		</entree>
+  		<entree vegetarian="true">
+  			<item>Salade de quinoa</item>
+			<price>5.39</price>
+  		</entree>
+  	</section>
+  	<section name="Diner">
+  		<entree>
+  			<item>Steak Frites</item>
+  			<price>8.99</price>
+  		</entree>
+  		<entree>
+  			<item>Merlu sauce samourai</item>
+  			<price>10.99</price>
+  		</entree>
+  		<entree vegetarian="true">
+  			<item>Champignons Farcis</item>
+  			<price>7.79</price>
+  		</entree>
+	</section>
+  </cafemenu>
+</xml>
+    
+<!--
+This is the embedded XML Data Island. The reason it does not render in
+the page is because we included a CSS style tag that sets the display of
+the XML tag to "none". Ordinarily, this is not how you would access XML
+in typical real-world production. For example, the XML data would be 
+retrieved from some other location using AJAX. To keep this example
+simple and self-contained, the XML is embedded in the document.
+-->
+
+<img src="logo-restaurant.jpg" alt="Logo" width="200" height="100"/>
+<h2>Bienvenue au resto</h2>
+<p> Selectionner les plats de vos choix ci-dessous.
+    cliquez sur calculer pour avoir le montant.
+    Pour voir les plats vegetariens cochez l'option en bas du tableau.
+    </p>
+<table id="menuTable" border="1">
+  <thead>
+	<tr>
+	  <th colspan="3">Menu</th>
+	</tr>
+	<tr>
+	  <th>Selection</th>
+	  <th>Plat</th>
+	  <th>Prix</th>
+	</tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<form class="indent">
+  <p>
+	<input type="button" name="btnCalcBill" value="Calculer le montant total" id="calcBill"/>
+	Total: euros
+	<input type="text" name="txtBillAmt"/>
+	<input type="checkbox" name="cbOpts" value="isVeg" id="showVeg"/>
+	<label for="showVeg">Surligner les plats vegetariens</label>
+	</p>
+</form>
+</body>
+</html>
